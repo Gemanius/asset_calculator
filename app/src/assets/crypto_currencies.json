@@ -1,0 +1,80 @@
+[
+  {
+    "name": "Dogecoin",
+    "icon": "https://assets.coinlayer.com/icons/DOGE.png",
+    "amount": 0,
+    "price": 2000
+  },
+  {
+    "name": "Bitcoin",
+    "icon": "https://assets.coinlayer.com/icons/BTC.png",
+    "amount": 0,
+    "price": 2000
+  },
+  {
+    "name": "Litecoin",
+    "icon": "https://assets.coinlayer.com/icons/LTC.png",
+    "amount": 0,
+    "price": 2000
+  },
+  {
+    "name": "Ethereum Classic",
+    "icon": "https://assets.coinlayer.com/icons/ETC.png",
+    "amount": 0,
+    "price": 2000
+  },
+  {
+    "name": "Ethereum",
+    "icon": "https://assets.coinlayer.com/icons/ETH.png",
+    "amount": 0,
+    "price": 2000
+  },
+  {
+    "name": "Ripple",
+    "icon": "https://assets.coinlayer.com/icons/XRP.png",
+    "amount": 0,
+    "price": 2000
+  },
+  {
+    "name": "Cardano",
+    "icon": "https://assets.coinlayer.com/icons/ADA.png",
+    "amount": 0,
+    "price": 2000
+  },
+  {
+    "name": "Tether",
+    "icon": "https://assets.coinlayer.com/icons/USDT.png",
+    "amount": 0,
+    "price": 2000
+  },
+  {
+    "name": "Tronix",
+    "icon": "https://assets.coinlayer.com/icons/TRX.png",
+    "amount": 0,
+    "price": 2000
+  },
+  {
+    "name": "Bitcoin Cash / BCC",
+    "icon": "https://assets.coinlayer.com/icons/BCH.png",
+    "amount": 0,
+    "price": 2000
+  },
+  {
+    "name": "Monero",
+    "icon": "https://assets.coinlayer.com/icons/XMR.png",
+    "amount": 0,
+    "price": 2000
+  },
+  {
+    "name": "Binance Coin",
+    "icon": "https://assets.coinlayer.com/icons/BNB.png",
+    "amount": 0,
+    "price": 2000
+  },
+  {
+    "name": "Stellar",
+    "icon": "https://assets.coinlayer.com/icons/XLM.png",
+    "amount": 0,
+    "price": 2000
+  }
+]

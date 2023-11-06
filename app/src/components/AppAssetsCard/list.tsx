@@ -1,10 +1,10 @@
 import React, { FC } from "react";
-import { TAppAsset } from "../../types/asset.type";
+import { TAppAsset, TUserAppAsset } from "../../types/asset.type";
 import { CurrencyCard } from ".";
 import { IDataProps } from "../../types/PropsData";
 import { CurrencyListContainer } from "./styles";
 
-const CurrencyList: FC<IDataProps<TAppAsset[]>> = (props) => {
+const CurrencyList: FC<IDataProps<TUserAppAsset[]>> = (props) => {
   return (
     <CurrencyListContainer>
       {props.data.map((elem) => (

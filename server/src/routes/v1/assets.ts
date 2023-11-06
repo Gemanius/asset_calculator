@@ -14,7 +14,12 @@ AssetRouter.get("/", [JWTGuard], async (req: Request, res: Response, next: NextF
   try {
     const userId: string = res.locals.payload.id;
     const result = await userAssetController.getAllSelfAssets(userId);
-
+    function sleep(ms = 3000) {
+      return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+      });
+    }
+    await sleep();
     return responseMaker(res, { code: 200, message: "done", data: result });
   } catch (e) {
     return next(e);

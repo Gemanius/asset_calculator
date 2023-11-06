@@ -1,12 +1,12 @@
 import { FC, useEffect, useState } from "react";
 import { Container, Items } from "./style";
 import { useSelector } from "react-redux";
-import { TAppAsset } from "../../types/asset.type";
+import { TAppAsset, TUserAppAsset } from "../../types/asset.type";
 import { Modal } from "../atoms/modal/Modal";
 import { useNavigate } from "react-router-dom";
 
 export const TotalAssetsModal: FC = () => {
-  const assets: TAppAsset[] = useSelector((state: any) => state.assets);
+  const assets: TUserAppAsset[] = useSelector((state: any) => state.assets);
   const [total, setTotal] = useState(0);
   const navigate = useNavigate();
   useEffect(() => {

@@ -1,10 +1,10 @@
 import { FC } from "react";
-import { TAsset } from "../../types/asset.type";
+import { TUserAsset } from "../../types/asset.type";
 import { AssetViewButton, SelfAssetListItem } from "./style";
 
 type TProps = {
-  data: TAsset;
-  onClickViewButton: (data: TAsset) => void;
+  data: TUserAsset;
+  onClickViewButton: (data: TUserAsset) => void;
 };
 
 export const SelfCreatedAssetItem: FC<TProps> = ({ data, onClickViewButton }) => {

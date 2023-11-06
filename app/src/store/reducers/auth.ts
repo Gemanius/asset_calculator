@@ -4,7 +4,7 @@ import { TAuthActions } from "../actions/auth";
 
 const initalState: TAuthInfo | null = null;
 
-const AuthReducer = (state: TAuthInfo | null = initalState, action: TAuthActions) => {
+export const authReducer = (state: TAuthInfo | null = initalState, action: TAuthActions) => {
   switch (action.type) {
     case EReduxAuthActions.SET_USER:
       if (state)
@@ -20,5 +20,3 @@ const AuthReducer = (state: TAuthInfo | null = initalState, action: TAuthActions
       return state;
   }
 };
-
-export default AuthReducer;

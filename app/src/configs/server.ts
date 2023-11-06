@@ -1,4 +1,4 @@
 export const serverConfigs = {
-  SERVER_URL: "http://localhost:4000",
-  API_VERSION: "v1",
+  SERVER_URL: "http://localhost:4000/",
+  API_VERSION: "v1/",
 };

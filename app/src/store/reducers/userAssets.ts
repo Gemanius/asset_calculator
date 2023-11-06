@@ -1,14 +1,27 @@
 import { EReduxUserAssetsActions } from "../../enum/redux-actions";
 import { TAssetsAction } from "../actions/userAssets";
-import { TAppAsset } from "../../types/asset.type";
+import { TAppAsset, TUserAppAsset } from "../../types/asset.type";
 import defaultAssets from "../../assets/crypto_currencies.json";
 
-const initialState: TAppAsset[] = [];
+const initialState: TUserAppAsset[] = [];
 
-const UserAssetsReducer = (state: TAppAsset[] = initialState, action: TAssetsAction) => {
+const updateResourceAssets = (preState: TUserAppAsset[], payload: TAppAsset[] | TUserAppAsset[]) => {
+  if (preState.length == 0) {
+    return [...payload.map((elem) => ({ ...elem, amount: 0 }))];
+  }
+  return [
+    ...preState.map((elem) => {
+      const asset = payload.find((asset) => asset.id == elem.id);
+      return {
+        ...elem,
+        ...asset,
+      };
+    }),
+  ];
+};
+
+export const userAssetsReducer = (state: TUserAppAsset[] = initialState, action: TAssetsAction) => {
   switch (action.type) {
-    case EReduxUserAssetsActions.INITIAL_RESOURCE_ASSETS:
-      return [...action.payload];
     case EReduxUserAssetsActions.UPDATE_USER_ASSET:
       return [
         ...state.map((preStateData) => {
@@ -20,11 +33,9 @@ const UserAssetsReducer = (state: TAppAsset[] = initialState, action: TAssetsAct
         }),
       ];
     case EReduxUserAssetsActions.UPDATE_RESOURCE_ASSETS:
-      return;
+      return updateResourceAssets(state, action.payload);
 
     default:
       return state;
   }
 };
-
-export default UserAssetsReducer;

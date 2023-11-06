@@ -1,12 +1,12 @@
 import React, { FC, useState, memo } from "react";
 import { CardStyles } from "./styles";
-import { TAppAsset } from "../../types/asset.type";
+import { TAppAsset, TUserAppAsset } from "../../types/asset.type";
 import { UserAssetValue } from "./userAssetValue";
 import { AssetInput } from "./inputAsset";
 
 /// should pass the details using props
 /// should restrict in by memo
-const Card: FC<TAppAsset> = ({ amount, price, icon, name }) => {
+const Card: FC<TUserAppAsset> = ({ amount, price, icon, name }) => {
   const [inputActivation, setInputActivation] = useState(false);
   const toggleInputActivation = () => setInputActivation((pre) => !pre);
   return (

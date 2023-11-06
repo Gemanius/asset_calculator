@@ -1,42 +1,28 @@
+import { useCallback, useState } from "react";
+import { BaseRequestInterface } from "../apis/baseRequest.interface";
 import { useDispatch } from "react-redux";
-import {
-  TDeleteFetchArguments,
-  TGetFetchArguments,
-  TPatchFetchArguments,
-  TPostFetchArguments,
-  TPutFetchArguments,
-} from "../types/fetchArguments";
-import { TServerResponse } from "../types/serverResponse.type";
 import { EReduxAuthActions } from "../enum/redux-actions";
-import { BaseFetchClass } from "../services/baseClass";
-import { useRef } from "react";
+import { TServerResponse } from "../types/serverResponse.type";
 
-type TMethodArg<T> =
-  | TGetFetchArguments
-  | TPatchFetchArguments<T>
-  | TDeleteFetchArguments<T>
-  | TPostFetchArguments<T>
-  | TPutFetchArguments<T>;
-type TMethod<D> = (arg: TMethodArg<D>) => Promise<Response>;
-type TResponse<D, R> = (methodArg: TMethodArg<D>) => Promise<TServerResponse<R> | void>;
+type TResponse<T> = <T>(request: BaseRequestInterface) => Promise<TServerResponse<T> | void>;
+type TResult = [boolean, TResponse<any>];
 
-export const useRequest = <D, R>(method: TMethod<D>, methodClass: BaseFetchClass): TResponse<D, R> => {
-  ///active loading
-
+export const useRequest = (): TResult => {
   const dispatch = useDispatch();
-  const requestID = useRef();
-  return async (methodArg: TMethodArg<D>) => {
-    const response = await method.call(methodClass, methodArg);
-    if (response.status > 199 && response.status < 300) {
-      /// deactive loading
-      return response.json();
-    }
-    if (response.status == 401) {
-      // deactive loading
-      console.log("its here");
-      dispatch({ type: EReduxAuthActions.DELETE_USER });
-    } else {
-      //// should show error
-    }
-  };
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  return [
+    isLoading,
+    useCallback(async <T>(api: BaseRequestInterface): Promise<TServerResponse<T> | void> => {
+      setIsLoading(true);
+      try {
+        const response = await fetch(api.url, api.requestInit);
+        if (response.status > 199 && response.status < 300) return response.json();
+        else if (response.status == 401) dispatch({ type: EReduxAuthActions.DELETE_USER });
+        else console.log(response.json());
+      } catch (e) {
+      } finally {
+        setIsLoading(false);
+      }
+    }, []),
+  ];
 };

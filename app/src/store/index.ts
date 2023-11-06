@@ -1,11 +1,11 @@
 import { combineReducers, legacy_createStore as createStore } from "redux";
-import assetsReducer from "./reducers/userAssets";
-import authReducer from "./reducers/auth";
+import { userAssetsReducer } from "./reducers/userAssets";
+import { authReducer } from "./reducers/auth";
 import { loadState, setState } from "../localStorage";
 
 const presistedState = loadState();
 const rootReducer = combineReducers({
-  assets: assetsReducer,
+  assets: userAssetsReducer,
   auth: authReducer,
 });
 

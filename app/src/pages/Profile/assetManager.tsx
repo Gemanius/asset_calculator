@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { AssetMangerSection, SelfAssetItem, AssetAttrInput, SubmitAssetAction } from "./style";
-import { TAsset } from "../../types/asset.type";
+import { TAsset, TUserAsset } from "../../types/asset.type";
 
 type TProps = {
   isModification?: boolean;
-  data?: TAsset;
+  data?: TUserAsset;
 };
 
 export const AssetManager: FC<TProps> = ({ isModification, data }) => {

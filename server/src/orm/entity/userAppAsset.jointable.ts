@@ -13,7 +13,7 @@ export class UserAppAsset {
   @Column({ name: "amount", type: "float" })
   amount: number;
   @UpdateDateColumn({ name: "updated_at" })
-  updateAt: Date;
+  updatedAt: Date;
   @ManyToOne(() => User, (user) => user.appAsset)
   user: User;
   @ManyToOne(() => AppAsset, (asset) => asset.user)

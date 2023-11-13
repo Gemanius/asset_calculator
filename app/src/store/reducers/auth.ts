@@ -6,14 +6,14 @@ const initalState: TAuthInfo | null = null;
 
 export const authReducer = (state: TAuthInfo | null = initalState, action: TAuthActions) => {
   switch (action.type) {
-    case EReduxAuthActions.SET_USER:
+    case EReduxAuthActions.SET:
       if (state)
         return {
           ...state,
           ...action.payload,
         };
       return action.payload;
-    case EReduxAuthActions.DELETE_USER:
+    case EReduxAuthActions.REMOVE:
       return initalState;
 
     default:

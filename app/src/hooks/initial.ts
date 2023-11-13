@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { Dispatch } from "redux";
-import { TAssetsAction } from "../store/actions/userAssets";
+import { TAssetsAction } from "../store/actions/appAsset";
 import { useEffect } from "react";
 
 /// should dynamic it using seperate function for fetch api, and using config for url

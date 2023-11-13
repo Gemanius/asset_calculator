@@ -3,13 +3,13 @@ import { UnderLineP, Form } from "./style";
 import { Input } from "./style";
 import { Button } from "../../components/atoms/button/style";
 import { TAuthBody } from "../../types/login";
-import { LoginRegisterValidations } from "./validations";
+import { LoginRegisterValidations } from "../../utils/validations/login";
 import { useDispatch } from "react-redux";
 import { EReduxAuthActions } from "../../enum/redux-actions";
 import { TAuthInfo } from "../../types/authInfo";
 import { useNavigate } from "react-router-dom";
 import { useRequest } from "../../hooks/useRequest";
-import { LoginApi, RegisterApi } from "../../apis";
+import { LoginApi, RegisterApi, UserApiNames } from "../../apis";
 
 export const Login: FC = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -28,14 +28,14 @@ export const Login: FC = () => {
     if (usernameInput.current && passwordInput.current) {
       const username = usernameInput.current.value;
       const password = passwordInput.current.value;
-      const isValidated = LoginRegisterValidations(username, password);
-      if (isValidated == true) {
+      const isValidated: boolean = LoginRegisterValidations(username, password);
+      if (isValidated) {
         const body: TAuthBody = { username, password };
         const api = isLogin ? new LoginApi(body) : new RegisterApi(body);
         const response = await request<TAuthBody>(api);
         if (response) {
           const payload = response.data;
-          dispatch({ type: EReduxAuthActions.SET_USER, payload });
+          dispatch({ type: EReduxAuthActions.SET, payload });
           navigate("/profile");
         }
       }
@@ -48,7 +48,11 @@ export const Login: FC = () => {
       <Input type="password" ref={passwordInput} placeholder={"password"} />
       <Button type="submit">{isRequestLoading ? "Loading..." : "Submit"}</Button>
       <UnderLineP onClick={onClickParagraph}>
-        {isLogin ? "Click to create new account" : "Click to Login on existing account"}
+        {isRequestLoading == UserApiNames.REGISTER || isRequestLoading == UserApiNames.LOGIN
+          ? "Loading..."
+          : isLogin
+          ? "Click to create new account"
+          : "Click to Login on existing account"}
       </UnderLineP>
     </Form>
   );

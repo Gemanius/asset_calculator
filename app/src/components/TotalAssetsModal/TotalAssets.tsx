@@ -1,19 +1,27 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { Container, Items } from "./style";
 import { useSelector } from "react-redux";
-import { TAppAsset, TUserAppAsset } from "../../types/asset.type";
 import { Modal } from "../atoms/modal/Modal";
 import { useNavigate } from "react-router-dom";
+import { TAppAsset, TCustomAsset } from "../../types/asset.type";
 
 export const TotalAssetsModal: FC = () => {
-  const assets: TUserAppAsset[] = useSelector((state: any) => state.assets);
+  const assets: TAppAsset[] = useSelector((state: any) => state.assets);
+  const customAssets: TCustomAsset[] = useSelector((state: any) => state.customAssets);
   const [total, setTotal] = useState(0);
   const navigate = useNavigate();
-  useEffect(() => {
+  const calculateAssets = useMemo(() => {
     let result = 0;
     assets.forEach((elem) => {
-      result = result + elem.amount * elem.price;
+      if (elem?.amount) result = result + elem.amount * elem.price;
     });
+    customAssets.forEach((elem) => {
+      if (elem?.amount) result = result + elem.amount * elem.price;
+    });
+    return result;
+  }, [assets, customAssets]);
+  useEffect(() => {
+    const result = calculateAssets;
     setTotal(result);
   }, [assets]);
 
@@ -25,14 +33,34 @@ export const TotalAssetsModal: FC = () => {
       <Container>
         <h1 style={{ color: "black" }}>Your total assets price is: ${total} </h1>
         {assets
-          .filter((asset) => asset.amount > 0)
-          .map((asset) => (
-            <Items key={asset.name}>
-              <div style={{ flex: 1 }}>{asset.name}</div>
-              <div style={{ flex: 1 }}>Amount: {asset.amount}</div>
-              <div style={{ flex: 1 }}>Total Price: {asset.amount * asset.price}</div>
-            </Items>
-          ))}
+          .filter((asset) => {
+            if (asset.amount) return asset?.amount > 0;
+            return false;
+          })
+          .map((asset) => {
+            if (asset?.amount)
+              return (
+                <Items key={asset.id}>
+                  <div style={{ flex: 1 }}>{asset.name}</div>
+                  <div style={{ flex: 1 }}>Amount: {asset.amount}</div>
+                  <div style={{ flex: 1 }}>Total Price: {asset.amount * asset.price}</div>
+                </Items>
+              );
+          })}
+        {customAssets
+          .filter((elem) => {
+            if (elem.amount) return elem.amount > 0;
+          })
+          .map((asset) => {
+            if (asset.amount)
+              return (
+                <Items key={asset.id}>
+                  <div style={{ flex: 1 }}>{asset.name}</div>
+                  <div style={{ flex: 1 }}>Amount: {asset.amount}</div>
+                  <div style={{ flex: 1 }}>Total Price: {asset.amount * asset.price}</div>
+                </Items>
+              );
+          })}
       </Container>
     </Modal>
   );

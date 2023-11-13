@@ -16,3 +16,7 @@ export class GetAppAssetsApi implements BaseRequestInterface {
     };
   }
 }
+
+export enum AppAssetApiNames {
+  GET_APP_ASSETS = "GetAppAssetsApi",
+}

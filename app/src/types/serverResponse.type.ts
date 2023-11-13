@@ -1,4 +1,4 @@
 export type TServerResponse<K> = {
-  message?: string;
+  message: string;
   data?: K;
 };

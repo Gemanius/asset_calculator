@@ -15,7 +15,7 @@ export const AssetInput: FC<Iprops> = ({ inputActivation, name, amount, toggleIn
   const dispatch = useDispatch();
   const onClickSubmitButton = () => {
     dispatch({
-      type: EReduxUserAssetsActions.UPDATE_USER_ASSET,
+      type: EReduxUserAssetsActions.UPDATE,
       payload: {
         name,
         amount: inputRef?.current?.value,

@@ -6,7 +6,6 @@ import { CreateAssetValidation, UpdateAssetValidation } from "../../middleware/v
 import userAssetController from "../../controller/asset";
 import { TUserAsset } from "../../types/userAsset/asset";
 import { hasUserPermision } from "../../middleware/userAssetOperationPermision";
-import { DeleteAssetValidation } from "../../middleware/validation/userAsset/delete";
 
 export const AssetRouter = Router();
 
@@ -14,12 +13,12 @@ AssetRouter.get("/", [JWTGuard], async (req: Request, res: Response, next: NextF
   try {
     const userId: string = res.locals.payload.id;
     const result = await userAssetController.getAllSelfAssets(userId);
-    function sleep(ms = 3000) {
-      return new Promise((resolve) => {
-        setTimeout(resolve, ms);
-      });
-    }
-    await sleep();
+    // function sleep(ms = 3000) {
+    //   return new Promise((resolve) => {
+    //     setTimeout(resolve, ms);
+    //   });
+    // }
+    // await sleep();
     return responseMaker(res, { code: 200, message: "done", data: result });
   } catch (e) {
     return next(e);
@@ -48,16 +47,12 @@ AssetRouter.put(
     }
   }
 );
-AssetRouter.delete(
-  "/",
-  [DeleteAssetValidation, JWTGuard, hasUserPermision],
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { id } = req.body;
-      await userAssetController.deleteAsset(id);
-      return responseMaker(res, { code: 200, message: "done" });
-    } catch (e) {
-      next(e);
-    }
+AssetRouter.delete("/:id", [JWTGuard, hasUserPermision], async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const id = +req.params?.id;
+    await userAssetController.deleteAsset(id);
+    return responseMaker(res, { code: 200, message: "done" });
+  } catch (e) {
+    next(e);
   }
-);
+});

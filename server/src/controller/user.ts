@@ -39,7 +39,7 @@ class UserController {
     const { username, password } = data;
     const user = await this.repository.findOne({ where: { username } });
     const isPasswordCorrect = await user?.comparePassword(password);
-    if (!user || !isPasswordCorrect) throw new CustomError({ code: 401, message: "username or password is incorrect" });
+    if (!user || !isPasswordCorrect) throw new CustomError({ code: 403, message: "username or password is incorrect" });
     const jwt = await createJwtToken(user.jwtPayload());
     return { ...user.data(), accessToken: jwt };
   }

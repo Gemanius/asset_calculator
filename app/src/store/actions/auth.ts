@@ -3,14 +3,14 @@ import { TAuthInfo } from "../../types/authInfo";
 
 const setUser = (data: TAuthInfo) => {
   return <const>{
-    type: EReduxAuthActions.SET_USER,
+    type: EReduxAuthActions.SET,
     payload: data,
   };
 };
 
 const delUser = ({}) => {
   return <const>{
-    type: EReduxAuthActions.DELETE_USER,
+    type: EReduxAuthActions.REMOVE,
   };
 };
 

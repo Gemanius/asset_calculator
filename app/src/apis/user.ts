@@ -22,7 +22,7 @@ export class RegisterApi implements BaseRequestInterface {
   url: string;
   requestInit: RequestInit;
   constructor(data: TAuthBody) {
-    this.url = userUrl;
+    this.url = userUrl + "create/";
     this.requestInit = {
       method: "post",
       headers: {
@@ -31,4 +31,9 @@ export class RegisterApi implements BaseRequestInterface {
       body: JSON.stringify(data),
     };
   }
+}
+
+export enum UserApiNames {
+  LOGIN = "LoginApi",
+  REGISTER = "RegisterApi",
 }

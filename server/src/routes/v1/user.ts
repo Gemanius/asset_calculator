@@ -22,12 +22,6 @@ UserRouter.post("/login", [LoginValidator], async (req: Request, res: Response, 
   const data: TLogin = req.body;
   try {
     const result = await UserController.login(data);
-    function sleep(ms = 3000) {
-      return new Promise((resolve) => {
-        setTimeout(resolve, ms);
-      });
-    }
-    await sleep();
     return responseMaker(res, { code: 200, data: result });
   } catch (e) {
     next(e);

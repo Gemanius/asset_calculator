@@ -9,7 +9,7 @@ export const NavContents = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const onClickLogout = () => {
-    dispatch({ type: EReduxAuthActions.DELETE_USER });
+    dispatch({ type: EReduxAuthActions.REMOVE });
     return navigate("/home");
   };
   return (

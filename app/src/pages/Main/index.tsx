@@ -14,7 +14,7 @@ export const MainPage = () => {
   const getAppAssets = async () => {
     const result = await request<TAppAsset[]>(new GetAppAssetsApi());
     if (result) {
-      dispatch({ type: EReduxUserAssetsActions.UPDATE_RESOURCE_ASSETS, payload: result.data });
+      dispatch({ type: EReduxUserAssetsActions.SET, payload: result.data });
     }
   };
   useEffect(() => {

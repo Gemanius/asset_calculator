@@ -1,44 +1,54 @@
 import { FC, useEffect, useState } from "react";
 import { AssetViewButton, SelfAssetListItem, SelfAssetSection } from "./style";
-import { TAsset, TUserAsset } from "../../types/asset.type";
 import { AssetModificationModal } from "./assetModificationModal";
 import { SelfCreatedAssetItem } from "./selfCreatedAssetItem";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { TAuthInfo } from "../../types/authInfo";
 import { useRequest } from "../../hooks/useRequest";
-import { GetAssetsApi } from "../../apis";
+import { CustomAssetApiNames, GetCustomAssetsApi } from "../../apis";
+import { TCustomAsset } from "../../types/asset.type";
+import { TCustomAssetActions } from "../../store/actions/customAsset";
+import { EReduxCustomAssetActions } from "../../enum/redux-actions";
 
 export const SelfCreatedAssets: FC = () => {
   const auth: TAuthInfo = useSelector((state: any) => state.auth);
-  const [modificationData, setModificationData] = useState<TUserAsset | null>(null);
-  const [data, setData] = useState<TUserAsset[]>([]);
+  const customAssets: TCustomAsset[] = useSelector((state: any) => state.customAssets);
+  const dispatch = useDispatch();
+  const [modificationData, setModificationData] = useState<TCustomAsset | null>(null);
   const [isRequestLoading, request] = useRequest();
-  const onClickViewButton = (data: TUserAsset) => {
+  const onClickViewButton = (data: TCustomAsset) => {
     setModificationData(data);
   };
   const onClickModificationModalBackdrop = () => {
     setModificationData(null);
   };
   const getUserSelfCreatedAssets = async () => {
-    console.log(auth.accessToken);
-    const response = await request<TUserAsset[]>(new GetAssetsApi(auth.accessToken));
+    const response = await request<[TCustomAsset & { createdAt: Date; updatedAt: Date }]>(
+      new GetCustomAssetsApi(auth.accessToken)
+    );
     if (response?.data) {
-      setData(response.data);
+      const assets = response.data.map((elem) => {
+        const { createdAt, updatedAt, ...assetData } = elem;
+        return assetData;
+      });
+      dispatch<TCustomAssetActions>({ type: EReduxCustomAssetActions.SET_ALL, payload: assets });
     }
   };
   useEffect(() => {
     getUserSelfCreatedAssets();
   }, []);
 
-  return isRequestLoading ? (
+  return isRequestLoading == CustomAssetApiNames.GET_CUSTOM_ASSET ? (
     <>Loading ....</>
   ) : (
     <SelfAssetSection>
       <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
         <h1 style={{ color: "black", margin: "8px 8px", paddingBottom: "16px" }}>Self Created Assets:</h1>
       </div>
-      {data.length > 0 ? (
-        data.map((elem) => <SelfCreatedAssetItem key={elem.name} data={elem} onClickViewButton={onClickViewButton} />)
+      {customAssets.length > 0 ? (
+        customAssets.map((elem) => (
+          <SelfCreatedAssetItem key={elem.name} data={elem} onClickViewButton={onClickViewButton} />
+        ))
       ) : (
         <h2>You have not inserted individual Assets ...</h2>
       )}

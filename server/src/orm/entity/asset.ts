@@ -24,7 +24,7 @@ export class Asset {
   @Column({ name: "price", nullable: false, type: "float" })
   price: number;
   @CreateDateColumn({ name: "created_at" })
-  createAt: Date;
+  createdAt: Date;
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
   @ManyToOne(() => User, (user: User) => user.assets)

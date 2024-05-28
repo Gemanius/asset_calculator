@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { NavContainer, NavSections } from "./style";
 import { useNavigate, useLocation } from "react-router-dom";
-import { EReduxAuthActions } from "../../enum/redux-actions";
+import { EReduxAuthActions, EReduxCustomAssetActions } from "../../enum/redux-actions";
 
 export const NavContents = () => {
   const navigate = useNavigate();
@@ -10,6 +10,7 @@ export const NavContents = () => {
   const dispatch = useDispatch();
   const onClickLogout = () => {
     dispatch({ type: EReduxAuthActions.REMOVE });
+    dispatch({ type: EReduxCustomAssetActions.DELETE_ALL });
     return navigate("/home");
   };
   return (
@@ -18,7 +19,7 @@ export const NavContents = () => {
         <>
           {location.pathname == "/profile" ? (
             <>
-              <NavSections to={"/"} $needborder>
+              <NavSections to={"/home"} $needborder>
                 Home
               </NavSections>
               <NavSections $needborder to={"/home"} onClick={onClickLogout}>

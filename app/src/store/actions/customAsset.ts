@@ -22,9 +22,14 @@ const update = (payload: TCustomAsset) =>
     type: EReduxCustomAssetActions.UPDATE,
     payload,
   };
+const deleteAll = () =>
+  <const>{
+    type: EReduxCustomAssetActions.DELETE_ALL,
+  };
 
 export type TCustomAssetActions =
   | ReturnType<typeof set>
   | ReturnType<typeof update>
   | ReturnType<typeof remove>
-  | ReturnType<typeof add>;
+  | ReturnType<typeof add>
+  | ReturnType<typeof deleteAll>;

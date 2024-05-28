@@ -6,18 +6,18 @@ import { EReduxUserAssetsActions } from "../../enum/redux-actions";
 
 interface Iprops {
   inputActivation: boolean;
-  name: string;
+  id: number;
   amount: number;
   toggleInputActivation: () => void;
 }
 
-export const AssetInput: FC<Iprops> = ({ inputActivation, name, amount, toggleInputActivation }) => {
+export const AssetInput: FC<Iprops> = ({ inputActivation, id, amount, toggleInputActivation }) => {
   const dispatch = useDispatch();
   const onClickSubmitButton = () => {
     dispatch({
       type: EReduxUserAssetsActions.UPDATE,
       payload: {
-        name,
+        id,
         amount: inputRef?.current?.value,
       },
     });

@@ -12,6 +12,8 @@ export const customAssetReducer = (state: TCustomAsset[] = preState, action: TCu
       return [...state.filter((elem) => elem.id != action.payload)];
     case EReduxCustomAssetActions.SET_ALL:
       return [...action.payload];
+    case EReduxCustomAssetActions.DELETE_ALL:
+      return preState;
     case EReduxCustomAssetActions.UPDATE:
       return [...state.filter((elem) => elem.id != action.payload.id), action.payload];
     default:

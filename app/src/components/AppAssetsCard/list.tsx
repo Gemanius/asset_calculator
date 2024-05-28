@@ -8,7 +8,7 @@ const CurrencyList: FC<IDataProps<TAppAsset[]>> = (props) => {
   return (
     <CurrencyListContainer>
       {props.data.map((elem) => (
-        <CurrencyCard {...elem} key={elem.name} />
+        <CurrencyCard {...elem} key={elem.id} />
       ))}
     </CurrencyListContainer>
   );

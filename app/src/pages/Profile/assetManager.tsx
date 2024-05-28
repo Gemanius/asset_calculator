@@ -35,7 +35,6 @@ export const AssetManager: FC<TProps> = (props) => {
   //   }));
   // }, []);
   if (props.isModification && props?.data) {
-    console.log("-------->", props.data.id);
     const onClickBackdrop = props.onClickBackdrop as () => void;
     const onClickSaveButton = async () => {
       const data = {
@@ -53,7 +52,6 @@ export const AssetManager: FC<TProps> = (props) => {
     };
     const onClickDeleteButton = async () => {
       const assetId = props.data?.id as number;
-      console.log(assetId);
       const isValidated = deleteCustomAssetValidation(assetId);
       if (isValidated) {
         const response = await request(new DeleteCustomAssetApi(assetId, auth.accessToken));

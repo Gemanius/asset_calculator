@@ -9,6 +9,7 @@ import { AssetRouter as AssetRouterV1 } from "./routes/v1/assets";
 import { AppAssetRouter as appAssetRouterV1 } from "./routes/v1/appAsset";
 import cors from "cors";
 import { RunSeed } from "./orm/seeds";
+import { schedulerTask } from "./cronjob";
 
 const app = express();
 
@@ -25,6 +26,8 @@ app.use(errorHandler);
   await DataSource.initialize();
   await RunSeed(DataSource);
 })();
+
+schedulerTask.start();
 
 app.listen(4000, () => {
   console.log("app is running...");

@@ -9,17 +9,17 @@ import { TAppAsset } from "../../types/asset.type";
 import { EReduxUserAssetsActions } from "../../enum/redux-actions";
 
 export const MainPage = () => {
-  const [isLoading, request] = useRequest();
-  const dispatch = useDispatch();
-  const getAppAssets = async () => {
-    const result = await request<TAppAsset[]>(new GetAppAssetsApi());
-    if (result) {
-      dispatch({ type: EReduxUserAssetsActions.SET, payload: result.data });
-    }
-  };
-  useEffect(() => {
-    getAppAssets();
-  }, []);
+  // const [isLoading, request] = useRequest();
+  // const dispatch = useDispatch();
+  // const getAppAssets = async () => {
+  //   const result = await request<TAppAsset[]>(new GetAppAssetsApi());
+  //   if (result) {
+  //     dispatch({ type: EReduxUserAssetsActions.SET, payload: result.data });
+  //   }
+  // };
+  // useEffect(() => {
+  //   getAppAssets();
+  // }, []);
   const props = useSelector((state: any) => state?.assets);
   return (
     <>

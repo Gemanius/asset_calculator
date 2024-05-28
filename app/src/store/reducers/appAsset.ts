@@ -5,18 +5,7 @@ import { TAppAsset } from "../../types/asset.type";
 const initialState: TAppAsset[] = [];
 
 const setAssets = (preState: TAppAsset[], payload: TAppAsset[]) => {
-  if (preState.length == 0) {
-    return [...payload.map((elem) => ({ ...elem, amount: 0 }))];
-  }
-  return [
-    ...preState.map((elem) => {
-      const asset = payload.find((asset) => asset.id == elem.id);
-      return {
-        ...elem,
-        ...asset,
-      };
-    }),
-  ];
+  return [...payload.map((elem) => ({ ...elem, amount: 0 }))];
 };
 
 export const assetsReducer = (state: TAppAsset[] = initialState, action: TAssetsAction) => {
@@ -24,10 +13,11 @@ export const assetsReducer = (state: TAppAsset[] = initialState, action: TAssets
     case EReduxUserAssetsActions.UPDATE:
       return [
         ...state.map((preStateData) => {
-          if (preStateData.name != action.payload.name) return preStateData;
+          if (preStateData.id != action.payload.id) return preStateData;
+          console.log(action.payload.id);
           return {
             ...preStateData,
-            ...action.payload,
+            amount: action.payload.amount,
           };
         }),
       ];

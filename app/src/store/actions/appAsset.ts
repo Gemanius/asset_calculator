@@ -1,14 +1,10 @@
 import { EReduxUserAssetsActions } from "../../enum/redux-actions";
 import { TAppAsset } from "../../types/asset.type";
 
-export const updateAsset = ({ name, amount, price }: TAppAsset) =>
+export const updateAsset = ({ id, amount }: TAppAsset) =>
   <const>{
     type: EReduxUserAssetsActions.UPDATE,
-    payload: {
-      name,
-      amount,
-      price,
-    },
+    payload: { id, amount },
   };
 
 export const updateAssetsPrice = (payload: TAppAsset[]) =>

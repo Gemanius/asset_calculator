@@ -1,5 +1,3 @@
-Sure, here is the entire README content in a single block for easy copying:
-
 ````markdown
 # Currency and Asset Tracker
 

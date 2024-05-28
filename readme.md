@@ -15,11 +15,15 @@ This project is a web application designed for user privacy and flexibility:
 
 ```
 currency-asset-calculator/
-  server/   # Node.js backend code (server.js)
+  server/   # Node.js backend code
     .env.example # Example environment variables
+    package.json  # Project dependencies
+    src/ # Node.js Codes, (root file is index.ts)
   app/      # React frontend code
+    package.json  # Project dependencies
+    src/ # react codes
   README.md  # This file
-  package.json  # Project dependencies
+
 ```
 
 **Installation:**
